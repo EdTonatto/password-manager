@@ -12,7 +12,7 @@ class CreateUserService implements CreateUserUseCase {
   async execute(userRestModel: UserRestModel): Promise<UserRestModel> {
     try {
       const user = await this.userProvider.findByEmail(userRestModel.email);
-      if (user) throw new CreateUserError('User already exists');
+      if (user) throw new Error('User already exists');
 
       const passwordHash = await hash(userRestModel.password, 8);
       Object.assign(userRestModel, {
