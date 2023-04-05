@@ -2,14 +2,16 @@ import { mock } from 'jest-mock-extended';
 import { UserController } from 'src/app/user/entrypoint/user.controller';
 import { UserResource } from 'src/app/user/entrypoint/user.resource';
 import { CreateUserError } from 'src/domain/user/error/createuser.error';
+import { AuthUseCase } from 'src/domain/user/usecase/auth.usecase';
 import { CreateUserUseCase } from 'src/domain/user/usecase/createuser.usecase';
 
 describe('UserController', () => {
   const createUserUseCase = mock<CreateUserUseCase>();
+  const authUseCase = mock<AuthUseCase>();
   let controller: UserResource;
 
   beforeEach(() => {
-    controller = new UserController(createUserUseCase);
+    controller = new UserController(createUserUseCase, authUseCase);
   });
 
   it('should be defined', () => {
