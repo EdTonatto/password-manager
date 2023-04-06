@@ -4,7 +4,9 @@ import { UserAuthRestModel } from './restmodel/userauth.restmodel';
 
 abstract class UserResource {
   abstract create(body: UserRestModel): Promise<ResponseData<UserRestModel>>;
-  abstract auth(body: UserAuthRestModel): Promise<ResponseData<any>>;
+  abstract auth(
+    body: UserAuthRestModel,
+  ): Promise<ResponseData<UserAuthRestModel>>;
 }
 
 export { UserResource };

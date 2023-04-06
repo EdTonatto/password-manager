@@ -36,7 +36,9 @@ class UserController implements UserResource {
 
   @HttpCode(HttpStatus.OK)
   @Post('/auth')
-  async auth(@Body() body: UserAuthRestModel): Promise<ResponseData<any>> {
+  async auth(
+    @Body() body: UserAuthRestModel,
+  ): Promise<ResponseData<UserAuthRestModel>> {
     try {
       const response = await this.authUseCase.execute(
         body.email,
