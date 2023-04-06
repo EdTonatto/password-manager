@@ -1,6 +1,7 @@
 import { mock } from 'jest-mock-extended';
 import { UserController } from 'src/app/user/entrypoint/user.controller';
 import { UserResource } from 'src/app/user/entrypoint/user.resource';
+import { AuthError } from 'src/domain/user/error/auth.error';
 import { CreateUserError } from 'src/domain/user/error/createuser.error';
 import { AuthUseCase } from 'src/domain/user/usecase/auth.usecase';
 import { CreateUserUseCase } from 'src/domain/user/usecase/createuser.usecase';
@@ -52,6 +53,47 @@ describe('UserController', () => {
       expect(error.success).toBeFalsy();
       expect(error.message).toEqual(
         'Error creating user. Error: User already exists',
+      );
+    }
+  });
+
+  it('should return a token', async () => {
+    const userAuthReq = {
+      email: 'testemail@email.com',
+      password: '123456',
+      token: '',
+    };
+
+    const userAuthRes = {
+      email: 'testemail@email.com',
+      password: '',
+      token: 'valid_token',
+    };
+
+    authUseCase.execute.mockResolvedValue(userAuthRes);
+    const response = await controller.auth(userAuthReq);
+    expect(response).toBeDefined();
+    expect(response.sucess).toBeTruthy();
+    expect(response.data).toBeDefined();
+    expect(response.data.email).toEqual(userAuthReq.email);
+    expect(response.data.token).toEqual(userAuthRes.token);
+  });
+
+  it('should return error when user or password invalid', async () => {
+    authUseCase.execute.mockImplementation(() => {
+      throw new AuthError('Invalid user or password');
+    });
+    try {
+      await controller.auth({
+        email: 'email',
+        password: 'password',
+        token: '',
+      });
+    } catch (error) {
+      expect(error).toBeDefined();
+      expect(error.success).toBeFalsy();
+      expect(error.message).toEqual(
+        'Error authenticating user. Error: Invalid user or password',
       );
     }
   });
