@@ -1,3 +1,5 @@
+[![codecov](https://codecov.io/gh/EdTonatto/password-manager/branch/main/graph/badge.svg?token=Rq1bCo9Tqr)](https://codecov.io/gh/EdTonatto/password-manager)
+
 # Password Manager
 
 Password Manager is an API Rest to generate and store users passwords.
