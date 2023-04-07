@@ -23,6 +23,7 @@ describe('UserController', () => {
     const user = {
       name: 'Test User',
       email: 'testuser@test.com',
+      isAdmin: false,
       password: '123456',
     };
 
@@ -39,6 +40,7 @@ describe('UserController', () => {
     const user = {
       name: 'Test User',
       email: 'testuser@test.com',
+      isAdmin: false,
       password: '123456',
     };
 
@@ -61,12 +63,14 @@ describe('UserController', () => {
     const userAuthReq = {
       email: 'testemail@email.com',
       password: '123456',
+      isAdmin: false,
       token: '',
     };
 
     const userAuthRes = {
       email: 'testemail@email.com',
       password: '',
+      isAdmin: false,
       token: 'valid_token',
     };
 
@@ -87,6 +91,7 @@ describe('UserController', () => {
       await controller.auth({
         email: 'email',
         password: 'password',
+        isAdmin: false,
         token: '',
       });
     } catch (error) {

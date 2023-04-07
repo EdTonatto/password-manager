@@ -1,5 +1,4 @@
 import { mock } from 'jest-mock-extended';
-import { UserRestModel } from 'src/app/user/entrypoint/restmodel/user.restmodel';
 import { UserDataProvider } from 'src/domain/user/dataprovider/user.dataprovider';
 import { CreateUserService } from 'src/domain/user/service/createuser.service';
 import { CreateUserUseCase } from 'src/domain/user/usecase/createuser.usecase';
@@ -20,6 +19,7 @@ describe('CreateUserUseCase', () => {
     const user = {
       name: 'Test User',
       email: 'testuser@test.com',
+      isAdmin: false,
       password: '123456',
     };
     userDataProvider.findByEmail.mockResolvedValue(null);
@@ -36,6 +36,7 @@ describe('CreateUserUseCase', () => {
     const user = {
       name: 'Test User',
       email: 'testuser@test.com',
+      isAdmin: false,
       password: '123456',
     };
     userDataProvider.findByEmail.mockResolvedValue(user);
@@ -53,6 +54,7 @@ describe('CreateUserUseCase', () => {
     const user = {
       name: 'Test User',
       email: 'testuser@test.com',
+      isAdmin: false,
       password: '123456',
     };
     userDataProvider.findByEmail.mockResolvedValue(null);

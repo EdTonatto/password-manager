@@ -2,7 +2,6 @@ import { JwtService } from '@nestjs/jwt';
 import { hash } from 'bcryptjs';
 import { mock } from 'jest-mock-extended';
 import { UserDataProvider } from 'src/domain/user/dataprovider/user.dataprovider';
-import { AuthError } from 'src/domain/user/error/auth.error';
 import { AuthService } from 'src/domain/user/service/auth.service';
 import { AuthUseCase } from 'src/domain/user/usecase/auth.usecase';
 
@@ -23,6 +22,7 @@ describe('AuthUseCase', () => {
     const userDb = {
       name: 'Test User',
       email: 'testemail@email.com',
+      isAdmin: false,
       password: await hash('123456', 8),
     };
 
@@ -55,6 +55,7 @@ describe('AuthUseCase', () => {
     const userDb = {
       name: 'Test User',
       email: 'testemail@email.com',
+      isAdmin: false,
       password: await hash('123456', 8),
     };
 
