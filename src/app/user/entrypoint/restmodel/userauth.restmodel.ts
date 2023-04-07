@@ -1,8 +1,9 @@
 class UserAuthRestModel {
   constructor(
     public email: string,
-    public password: string,
-    public token: string,
+    public isAdmin: boolean,
+    public token?: string,
+    public password?: string,
   ) {}
 }
 

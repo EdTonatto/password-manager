@@ -21,8 +21,11 @@ class AuthService implements AuthUseCase {
       const passwordMatch = await compare(password, user.password);
       if (!passwordMatch) throw new Error('Invalid user or password');
 
-      const token = await this.jwtService.signAsync({ email: user.email });
-      return new UserAuthRestModel(user.email, '', token);
+      const token = await this.jwtService.signAsync({
+        email: user.email,
+        isAdmin: user.isAdmin,
+      });
+      return new UserAuthRestModel(user.email, user.isAdmin, token);
     } catch (error) {
       throw new AuthError(error.message);
     }

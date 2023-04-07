@@ -3,13 +3,11 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { UserDataProvider } from 'src/domain/user/dataprovider/user.dataprovider';
 import { UserRestModel } from '../entrypoint/restmodel/user.restmodel';
-import { UserModel } from './model/user.model';
+import { User } from './model/user.model';
 
 @Injectable({ scope: Scope.REQUEST })
 class UserProvider implements UserDataProvider {
-  constructor(
-    @InjectModel(UserModel.name) private userModel: Model<UserModel>,
-  ) {}
+  constructor(@InjectModel(User.name) private userModel: Model<User>) {}
 
   async create(userRestModel: UserRestModel): Promise<UserRestModel> {
     const createdUser = new this.userModel(userRestModel);
