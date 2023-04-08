@@ -1,7 +1,21 @@
 import { HttpException, HttpStatus } from '@nestjs/common';
+import { ApiProperty } from '@nestjs/swagger';
 
 class ResponseData<T> {
-  constructor(public sucess: boolean, public message: string, public data: T) {}
+  @ApiProperty()
+  public sucess: boolean;
+
+  @ApiProperty()
+  public message: string;
+
+  @ApiProperty()
+  public data: T;
+
+  constructor(sucess: boolean, message: string, data: T) {
+    this.sucess = sucess;
+    this.message = message;
+    this.data = data;
+  }
 
   static success<T>(data: T): ResponseData<T> {
     return new ResponseData(true, '', data);

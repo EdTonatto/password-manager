@@ -7,6 +7,7 @@ import {
   Post,
   Scope,
 } from '@nestjs/common';
+import { ApiBody, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { AuthUseCase } from 'src/domain/user/usecase/auth.usecase';
 import { CreateUserUseCase } from 'src/domain/user/usecase/createuser.usecase';
 import { ResponseData } from 'src/shared/response/responsedata';
@@ -23,6 +24,15 @@ class UserController implements UserResource {
   ) {}
 
   @Post('/')
+  @ApiTags('User')
+  @ApiOperation({ summary: 'Create user' })
+  @ApiBody({ type: UserRestModel })
+  @ApiResponse({
+    status: 201,
+    description: 'User created',
+    type: UserRestModel,
+  })
+  @ApiResponse({ status: 400, description: 'User already exists' })
   async create(
     @Body() body: UserRestModel,
   ): Promise<ResponseData<UserRestModel>> {
@@ -36,6 +46,15 @@ class UserController implements UserResource {
 
   @HttpCode(HttpStatus.OK)
   @Post('/auth')
+  @ApiTags('User')
+  @ApiOperation({ summary: 'Authenticate user' })
+  @ApiBody({ type: UserAuthRestModel })
+  @ApiResponse({
+    status: 200,
+    description: 'User authenticated',
+    type: UserAuthRestModel,
+  })
+  @ApiResponse({ status: 400, description: 'User can not be authenticated' })
   async auth(
     @Body() body: UserAuthRestModel,
   ): Promise<ResponseData<UserAuthRestModel>> {

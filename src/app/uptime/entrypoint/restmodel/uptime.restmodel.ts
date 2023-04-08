@@ -1,5 +1,12 @@
+import { ApiProperty } from '@nestjs/swagger';
+
 class UptimeRestModel {
-  constructor(public message: string) {}
+  @ApiProperty()
+  public message: string;
+
+  constructor(message: string) {
+    this.message = message;
+  }
 }
 
 export { UptimeRestModel };
