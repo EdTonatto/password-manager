@@ -5,11 +5,17 @@ import {
   HttpStatus,
   Injectable,
   Post,
+  Req,
   Scope,
+  UseGuards,
 } from '@nestjs/common';
 import { ApiBody, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { Request } from 'express';
+import { PasswordGenerateRestModel } from 'src/app/password/entrypoint/restmodel/passwordgenerate.restmodel';
+import { AuthGuard } from 'src/domain/user/service/auth.guard';
 import { AuthUseCase } from 'src/domain/user/usecase/auth.usecase';
 import { CreateUserUseCase } from 'src/domain/user/usecase/createuser.usecase';
+import { GeneratePasswordUseCase } from 'src/domain/user/usecase/generatepassword.usecase';
 import { ResponseData } from 'src/shared/response/responsedata';
 import { UserRestModel } from './restmodel/user.restmodel';
 import { UserAuthRestModel } from './restmodel/userauth.restmodel';
@@ -21,6 +27,7 @@ class UserController implements UserResource {
   constructor(
     private readonly createUserUseCase: CreateUserUseCase,
     private readonly authUseCase: AuthUseCase,
+    private readonly generatePasswordUseCase: GeneratePasswordUseCase,
   ) {}
 
   @Post('/')
@@ -62,6 +69,23 @@ class UserController implements UserResource {
       const response = await this.authUseCase.execute(
         body.email,
         body.password,
+      );
+      return ResponseData.success(response);
+    } catch (error) {
+      throw ResponseData.exception(error.message, HttpStatus.BAD_REQUEST);
+    }
+  }
+
+  @UseGuards(AuthGuard)
+  @Post('/generate-password')
+  async testPass(
+    @Req() req: Request,
+    @Body() body: PasswordGenerateRestModel,
+  ): Promise<ResponseData<UserRestModel>> {
+    try {
+      const response = await this.generatePasswordUseCase.execute(
+        req.user.email,
+        body,
       );
       return ResponseData.success(response);
     } catch (error) {
