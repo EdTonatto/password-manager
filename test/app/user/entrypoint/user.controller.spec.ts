@@ -5,14 +5,20 @@ import { AuthError } from 'src/domain/user/error/auth.error';
 import { CreateUserError } from 'src/domain/user/error/createuser.error';
 import { AuthUseCase } from 'src/domain/user/usecase/auth.usecase';
 import { CreateUserUseCase } from 'src/domain/user/usecase/createuser.usecase';
+import { GeneratePasswordUseCase } from 'src/domain/user/usecase/generatepassword.usecase';
 
 describe('UserController', () => {
   const createUserUseCase = mock<CreateUserUseCase>();
   const authUseCase = mock<AuthUseCase>();
+  const generatePasswordUseCase = mock<GeneratePasswordUseCase>();
   let controller: UserResource;
 
   beforeEach(() => {
-    controller = new UserController(createUserUseCase, authUseCase);
+    controller = new UserController(
+      createUserUseCase,
+      authUseCase,
+      generatePasswordUseCase,
+    );
   });
 
   it('should be defined', () => {
