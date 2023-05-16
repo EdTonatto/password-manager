@@ -10,8 +10,7 @@ class UserProvider implements UserDataProvider {
   constructor(@InjectModel(User.name) private userModel: Model<User>) {}
 
   async create(userRestModel: UserRestModel): Promise<UserRestModel> {
-    const createdUser = new this.userModel(userRestModel);
-    return await createdUser.save();
+    return await this.userModel.create(userRestModel);
   }
 
   async update(userRestModel: UserRestModel): Promise<UserRestModel> {
