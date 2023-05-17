@@ -15,7 +15,7 @@ describe('UserDataProvider', () => {
     fndByIdAndUpdate: jest.fn(),
     findById: jest.fn(),
     findOne: jest.fn(),
-  }
+  };
 
   beforeEach(async () => {
     const moduleRef = await Test.createTestingModule({
@@ -24,8 +24,8 @@ describe('UserDataProvider', () => {
         {
           provide: getModelToken(User.name),
           useValue: mockUserModel,
-        }
-      ]
+        },
+      ],
     }).compile();
 
     userDataProvider = await moduleRef.resolve<UserProvider>(UserProvider);
@@ -41,7 +41,7 @@ describe('UserDataProvider', () => {
       isAdmin: false,
       email: 'test@test.test',
       password: 'test',
-    }
+    };
     mockUserModel.create.mockResolvedValueOnce(useRestModel);
     const result = await userDataProvider.create(useRestModel);
     expect(result).toEqual(useRestModel);

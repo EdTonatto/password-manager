@@ -9,8 +9,8 @@ describe('MongoPingDataProvider', () => {
   const mockConnection = {
     db: {
       command: jest.fn(),
-    }
-  }
+    },
+  };
 
   beforeEach(async () => {
     const moduleRef = await Test.createTestingModule({
@@ -19,11 +19,13 @@ describe('MongoPingDataProvider', () => {
         {
           provide: getConnectionToken(),
           useValue: mockConnection,
-        }
-      ]
+        },
+      ],
     }).compile();
 
-    mongoPingDataProvider = await moduleRef.resolve<MongoPingProvider>(MongoPingProvider);
+    mongoPingDataProvider = await moduleRef.resolve<MongoPingProvider>(
+      MongoPingProvider,
+    );
   });
 
   it('should be defined', () => {
@@ -31,7 +33,7 @@ describe('MongoPingDataProvider', () => {
   });
 
   it('should return "MongoDB is connected" if its ok', async () => {
-    mockConnection.db.command.mockResolvedValueOnce({ok: 1});
+    mockConnection.db.command.mockResolvedValueOnce({ ok: 1 });
     const result = await mongoPingDataProvider.ping();
     expect(result).toEqual('MongoDB is connected');
   });
