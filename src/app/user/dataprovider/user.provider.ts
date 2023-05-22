@@ -14,14 +14,13 @@ class UserProvider implements UserDataProvider {
   }
 
   async update(userRestModel: UserRestModel): Promise<UserRestModel> {
-    await this.userModel.findByIdAndUpdate(userRestModel._id, userRestModel);
-    return await (
-      await this.userModel.findById(userRestModel._id).exec()
-    ).populate('stored_passwords');
+    return await this.userModel
+      .findByIdAndUpdate(userRestModel._id, userRestModel)
+      .populate('stored_passwords');
   }
 
   async findByEmail(email: string): Promise<UserRestModel> {
-    return await this.userModel.findOne({ email: email }).exec();
+    return await this.userModel.findOne({ email: email });
   }
 }
 
