@@ -28,6 +28,7 @@ class GeneratePasswordService implements GeneratePasswordUseCase {
         lowercase: passwordGenerate.lowercase,
         excludeSimilarCharacters: passwordGenerate.excludeSimilarCharacters,
       }),
+      8,
     );
 
     const passwordModel: PasswordRestModel = {
