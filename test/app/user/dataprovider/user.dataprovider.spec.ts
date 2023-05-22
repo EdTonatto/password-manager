@@ -12,7 +12,7 @@ describe('UserDataProvider', () => {
   const mockUserModel = {
     create: jest.fn(),
     save: jest.fn(),
-    fndByIdAndUpdate: jest.fn(),
+    findByIdAndUpdate: jest.fn(),
     findById: jest.fn(),
     findOne: jest.fn(),
   };
@@ -44,6 +44,36 @@ describe('UserDataProvider', () => {
     };
     mockUserModel.create.mockResolvedValueOnce(useRestModel);
     const result = await userDataProvider.create(useRestModel);
+    expect(result).toEqual(useRestModel);
+  });
+
+  it('should find and update a user', async () => {
+    const userRestModel: UserRestModel = {
+      name: 'test update',
+      isAdmin: false,
+      email: 'test@test.test',
+      password: 'test',
+    };
+
+    mockUserModel.findByIdAndUpdate.mockReturnValue({
+      populate: jest.fn().mockResolvedValue(userRestModel),
+    });
+
+    const result = await userDataProvider.update(userRestModel);
+    expect(result).toEqual(userRestModel);
+    expect(mockUserModel.findByIdAndUpdate).toHaveBeenCalled();
+    expect(mockUserModel.findByIdAndUpdate().populate).toHaveBeenCalled();
+  });
+
+  it('should find a user by email', async () => {
+    const useRestModel: UserRestModel = {
+      name: 'test',
+      isAdmin: false,
+      email: 'test@test.test',
+      password: 'test',
+    };
+    mockUserModel.findOne.mockResolvedValueOnce(useRestModel);
+    const result = await userDataProvider.findByEmail(useRestModel.email);
     expect(result).toEqual(useRestModel);
   });
 });
