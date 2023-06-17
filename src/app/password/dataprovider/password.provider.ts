@@ -12,8 +12,7 @@ class PasswordProvider implements PasswordDataProvider {
   ) {}
 
   async create(password: PasswordRestModel): Promise<PasswordRestModel> {
-    const createdPassword = new this.passwordModel(password);
-    const { _id } = await createdPassword.save();
+    const { _id } = await this.passwordModel.create(password);
     return { _id, ...password };
   }
 }
