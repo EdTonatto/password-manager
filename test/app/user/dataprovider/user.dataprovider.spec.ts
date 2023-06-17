@@ -1,7 +1,5 @@
 import { getModelToken } from '@nestjs/mongoose';
 import { Test } from '@nestjs/testing';
-import exp from 'constants';
-import { Model } from 'mongoose';
 import { User } from 'src/app/user/dataprovider/model/user.model';
 import { UserProvider } from 'src/app/user/dataprovider/user.provider';
 import { UserRestModel } from 'src/app/user/entrypoint/restmodel/user.restmodel';
