@@ -1,5 +1,6 @@
 [![codecov](https://codecov.io/gh/EdTonatto/password-manager/branch/main/graph/badge.svg?token=Rq1bCo9Tqr)](https://codecov.io/gh/EdTonatto/password-manager)
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/85ea8c2adfac456e92dd44d5bddb393c)](https://app.codacy.com/gh/EdTonatto/password-manager/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade)
+[![CI](https://github.com/EdTonatto/password-manager/actions/workflows/node.js.yml/badge.svg)](https://github.com/EdTonatto/password-manager/actions/workflows/node.js.yml)
 
 # Password Manager
 
